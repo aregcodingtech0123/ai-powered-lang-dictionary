@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #fafafa;
+  --foreground: #171717;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    overflow-x: clip;
+    -webkit-tap-highlight-color: transparent;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    color: var(--foreground);
+    background: var(--background);
+    overflow-x: clip;
+    min-height: 100dvh;
+  }
+
+  /* Removes ~300ms tap delay on many mobile browsers; keeps pinch-zoom */
+  button,
+  a,
+  [role="button"],
+  input[type="submit"],
+  label[for] {
+    touch-action: manipulation;
+  }
+}

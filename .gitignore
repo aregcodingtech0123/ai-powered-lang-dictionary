@@ -1,0 +1,11 @@
+node_modules
+dist
+.next
+*.log
+.DS_Store
+
+# Environment and secrets — ignore all variants; keep tracked example(s) below
+.env
+.env.*
+!.env.example
+!**/.env.example

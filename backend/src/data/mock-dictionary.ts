@@ -1,0 +1,26 @@
+export const mockDictionary = {
+  en_to_tr: {
+    run: ["koşmak", "çalıştırmak", "yönetmek (işletme)"],
+    water: ["su", "sulamak"],
+    house: ["ev", "konut"],
+    book: ["kitap", "rezervasyon yapmak"],
+    light: ["ışık", "hafif", "aydınlatmak"],
+    time: ["zaman", "süre", "kez"],
+    love: ["sevgi", "aşk", "sevmek"],
+    work: ["iş", "çalışmak", "eser"],
+    friend: ["arkadaş", "dost"],
+    beautiful: ["güzel", "harika"],
+  },
+  tr_to_en: {
+    koşmak: ["to run", "to jog"],
+    su: ["water"],
+    ev: ["house", "home"],
+    kitap: ["book"],
+    zaman: ["time"],
+    sevgi: ["love", "affection"],
+    iş: ["work", "job", "business"],
+    arkadaş: ["friend", "buddy"],
+    güzel: ["beautiful", "nice", "pretty"],
+    merhaba: ["hello", "hi"],
+  },
+} as const;
