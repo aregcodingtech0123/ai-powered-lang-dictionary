@@ -77,20 +77,22 @@ export default function ContactPage() {
   return (
     <main
       dir={isRtl ? "rtl" : undefined}
-      className={`mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 ${isRtl ? "text-right" : ""}`}
+      className={`mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 sm:py-12 ${isRtl ? "text-right" : ""}`}
     >
-      <div className="rounded-3xl border border-slate-200/70 bg-white/60 p-6 shadow-xl backdrop-blur-md">
-        <h1 className="text-2xl font-semibold text-slate-900">{doc.title}</h1>
-        <section className="mt-4 space-y-2 text-slate-700">
+      <div className="card-surface rounded-2xl p-6 sm:p-8">
+        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+          <span className="text-brand-gradient">{doc.title}</span>
+        </h1>
+        <section className="mt-4 space-y-2 content-prose">
           {doc.intro.map((p, i) => (
             <p key={`intro-${i}`}>{p}</p>
           ))}
         </section>
 
-        <div className="mt-6 max-w-2xl rounded-2xl border border-slate-200/70 bg-white/60 p-6 shadow-sm backdrop-blur-md">
-          <form className="space-y-4" onSubmit={onSubmit}>
+        <div className="card-surface mt-8 max-w-2xl rounded-2xl p-6 sm:p-8">
+          <form className="space-y-5" onSubmit={onSubmit}>
             <div>
-              <label htmlFor="name" className="mb-1 block text-sm font-medium text-slate-700">
+              <label htmlFor="name" className="mb-1.5 block text-sm font-semibold text-brand-text">
                 {doc.labels.name}
               </label>
               <input
@@ -99,12 +101,12 @@ export default function ContactPage() {
                 onChange={(e) => setName(e.target.value)}
                 required
                 placeholder={doc.placeholders.name}
-                className="h-11 w-full rounded-xl border border-slate-300 bg-white/70 px-3 text-slate-900 outline-none focus:border-slate-400 focus:ring-2 focus:ring-slate-300"
+                className="input-field"
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="mb-1 block text-sm font-medium text-slate-700">
+              <label htmlFor="email" className="mb-1.5 block text-sm font-semibold text-brand-text">
                 {doc.labels.email}
               </label>
               <input
@@ -114,12 +116,12 @@ export default function ContactPage() {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder={doc.placeholders.email}
-                className="h-11 w-full rounded-xl border border-slate-300 bg-white/70 px-3 text-slate-900 outline-none focus:border-slate-400 focus:ring-2 focus:ring-slate-300"
+                className="input-field"
               />
             </div>
 
             <div>
-              <label htmlFor="subject" className="mb-1 block text-sm font-medium text-slate-700">
+              <label htmlFor="subject" className="mb-1.5 block text-sm font-semibold text-brand-text">
                 {doc.labels.subject}
               </label>
               <input
@@ -128,12 +130,12 @@ export default function ContactPage() {
                 onChange={(e) => setSubject(e.target.value)}
                 required
                 placeholder={doc.placeholders.subject}
-                className="h-11 w-full rounded-xl border border-slate-300 bg-white/70 px-3 text-slate-900 outline-none focus:border-slate-400 focus:ring-2 focus:ring-slate-300"
+                className="input-field"
               />
             </div>
 
             <div>
-              <label htmlFor="message" className="mb-1 block text-sm font-medium text-slate-700">
+              <label htmlFor="message" className="mb-1.5 block text-sm font-semibold text-brand-text">
                 {doc.labels.message}
               </label>
               <textarea
@@ -143,28 +145,18 @@ export default function ContactPage() {
                 required
                 rows={6}
                 placeholder={doc.placeholders.message}
-                className="w-full rounded-xl border border-slate-300 bg-white/70 px-3 py-2 text-slate-900 outline-none focus:border-slate-400 focus:ring-2 focus:ring-slate-300"
+                className="input-field min-h-[9rem] resize-y py-3"
               />
             </div>
 
-            <button
-              type="submit"
-              disabled={status === "sending"}
-              className="inline-flex h-11 items-center justify-center rounded-xl bg-indigo-600 px-5 text-sm font-medium text-white transition hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-60"
-            >
+            <button type="submit" disabled={status === "sending"} className="btn-primary">
               {status === "sending" ? doc.buttons.sending : doc.buttons.submit}
             </button>
           </form>
 
-          {status === "success" && (
-            <p className="mt-4 rounded-lg border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-800">
-              {doc.alerts.success}
-            </p>
-          )}
+          {status === "success" && <p className="alert-success mt-5">{doc.alerts.success}</p>}
           {status === "error" && (
-            <p className="mt-4 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800">
-              {errorText || doc.alerts.genericError}
-            </p>
+            <p className="alert-error mt-5">{errorText || doc.alerts.genericError}</p>
           )}
         </div>
       </div>

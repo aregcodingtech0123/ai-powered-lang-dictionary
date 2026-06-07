@@ -24,23 +24,23 @@ export function PopularWordsExpandable(props: {
     <div className={className} dir={isRtl ? "rtl" : undefined}>
       <button
         type="button"
-        className="group flex min-h-[44px] w-full items-center justify-between rounded-3xl border border-slate-200/70 bg-white/95 px-4 py-3 text-left shadow-md transition-[box-shadow,background-color] duration-300 hover:bg-white md:bg-white/60 md:shadow-xl md:backdrop-blur-md"
+        className="card-surface-interactive group flex min-h-[52px] w-full items-center justify-between rounded-2xl px-5 py-4 text-left"
         aria-expanded={open}
         aria-controls="popular-words-panel"
         onClick={() => setOpen((v) => !v)}
       >
         <div className="min-w-0">
-          <p className={`text-sm font-semibold text-slate-900 sm:text-base ${isRtl ? "text-right" : ""}`}>
+          <p className={`text-sm font-semibold text-brand-text sm:text-base ${isRtl ? "text-right" : ""}`}>
             {translate("popularWordsTitle")}
           </p>
-          <p className={`mt-0.5 text-xs text-slate-600 sm:text-sm ${isRtl ? "text-right" : ""}`}>
+          <p className={`mt-1 text-xs text-brand-text-secondary sm:text-sm ${isRtl ? "text-right" : ""}`}>
             {translate("popularWordsSubtitle")}
           </p>
         </div>
         <span
           aria-hidden="true"
-          className={`ml-3 inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm transition-transform duration-300 ease-out will-change-transform md:bg-white/70 md:backdrop-blur-md ${
-            open ? "rotate-180" : "rotate-0"
+          className={`ml-3 inline-flex size-10 shrink-0 items-center justify-center rounded-full border border-brand-border bg-brand-card text-brand-text-secondary shadow-sm transition-all duration-200 group-hover:border-indigo-200 group-hover:text-brand-primary ${
+            open ? "rotate-180 bg-indigo-50 text-brand-primary" : "rotate-0"
           }`}
         >
           ▾
@@ -53,16 +53,16 @@ export function PopularWordsExpandable(props: {
         }`}
       >
         <div id="popular-words-panel" className="min-h-0 overflow-hidden">
-          <div className="overflow-hidden rounded-3xl border border-slate-200/70 bg-white/95 shadow-md md:bg-white/60 md:shadow-xl md:backdrop-blur-md">
-            <div className="p-3 sm:p-4">
-              <div className="grid grid-cols-2 gap-2 sm:gap-3 md:grid-cols-4 lg:grid-cols-6">
+          <div className="card-surface overflow-hidden rounded-2xl">
+            <div className="p-4 sm:p-5">
+              <div className="grid grid-cols-2 gap-2.5 sm:gap-3 md:grid-cols-4 lg:grid-cols-6">
                 {items.map((e) => {
                   const href = `/dictionary/${from}/${to}/${encodeURIComponent(e.word)}`;
                   return (
                     <Link
                       key={`${from}-${to}-${e.word}`}
                       href={href}
-                      className="flex min-h-[44px] items-center justify-center rounded-full bg-indigo-50 px-3 py-2 text-center text-xs font-semibold leading-tight text-indigo-800 ring-1 ring-indigo-100 transition-[transform,background-color,box-shadow] duration-200 ease-out active:bg-indigo-100 sm:text-sm md:hover:-translate-y-0.5 md:hover:bg-indigo-100 md:hover:shadow-md"
+                      className="chip-indigo flex min-h-[44px] items-center justify-center !rounded-input px-3 py-2.5 text-center !text-xs leading-tight active:scale-[0.98] sm:!text-sm md:hover:-translate-y-0.5 md:hover:shadow-card"
                       onClick={(evt) => {
                         if (!onSelect) return;
                         evt.preventDefault();

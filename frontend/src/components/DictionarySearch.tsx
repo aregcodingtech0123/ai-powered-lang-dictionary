@@ -190,19 +190,17 @@ export function DictionarySearch() {
   );
 
   return (
-    <div ref={topRef} className="mx-auto w-full max-w-6xl overflow-x-hidden px-3 py-6 sm:px-4 sm:py-8 md:px-6 md:py-10">
-      <header className="mb-8 text-center sm:mb-10">
-        <h1 className="text-[1.65rem] font-bold leading-tight tracking-tight text-slate-900 sm:text-3xl md:text-4xl lg:text-5xl">
-          <span className="bg-gradient-to-r from-indigo-500 via-indigo-500 to-violet-600 bg-clip-text text-transparent">
-            {translate("navTitle")}
-          </span>
+    <div ref={topRef} className="mx-auto w-full max-w-6xl overflow-x-hidden px-4 py-8 sm:px-6 sm:py-10 md:py-12">
+      <header className="mb-10 text-center sm:mb-12">
+        <h1 className="page-heading-gradient">
+          <span className="text-brand-gradient">{translate("navTitle")}</span>
         </h1>
-        <p className="mx-auto mt-3 max-w-2xl text-base leading-relaxed text-slate-700 sm:text-lg">
+        <p className="mx-auto mt-4 max-w-2xl content-prose">
           {translate("heroSubtitle")}
         </p>
       </header>
 
-      <section className="rounded-[28px] border border-slate-200/70 bg-white/95 p-5 shadow-lg transition-all duration-300 sm:p-6 md:bg-white/55 md:p-8 md:shadow-xl md:backdrop-blur-md md:hover:shadow-2xl">
+      <section className="card-surface-interactive rounded-2xl p-5 shadow-search sm:p-6 md:p-8 lg:rounded-[1.25rem]">
         <div className="grid w-full min-w-0 grid-cols-1 gap-4 sm:gap-6 md:grid-cols-3 md:gap-6 lg:grid-cols-12 lg:items-end">
           <DictionarySearchWordInput
             ref={wordInputRef}
@@ -216,7 +214,7 @@ export function DictionarySearch() {
           <div className="flex min-w-0 flex-col gap-1 md:col-span-1 lg:col-span-2">
             <label
               htmlFor="source"
-              className="block min-h-[1.25rem] text-sm font-semibold leading-tight text-slate-700"
+              className="block min-h-[1.25rem] text-sm font-semibold leading-tight text-brand-text"
             >
               {translate("sourceLabel")}
             </label>
@@ -224,7 +222,7 @@ export function DictionarySearch() {
               id="source"
               value={sourceLanguage}
               onChange={(e) => setSourceLanguage(e.target.value as LangCode)}
-              className="box-border min-h-11 w-full min-w-0 rounded-2xl border border-slate-200 bg-white px-3 py-3 text-base text-slate-900 shadow-sm outline-none transition-all duration-300 focus:border-indigo-300 focus:ring-4 focus:ring-indigo-200/60 md:bg-white/70 md:backdrop-blur-md"
+              className="select-field"
             >
               {SUPPORTED_LANGUAGES.map((code) => (
                 <option key={`src-${code}`} value={code}>
@@ -244,7 +242,7 @@ export function DictionarySearch() {
               <button
                 type="button"
                 onClick={swapLanguages}
-                className="inline-flex h-11 w-full max-w-[4.5rem] shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-white px-3 text-sm font-semibold text-slate-700 shadow-sm transition-all duration-300 hover:bg-slate-50 md:bg-white/70 md:backdrop-blur-md"
+                className="btn-secondary h-11 w-full max-w-[4.5rem] shrink-0 !px-3 text-base"
                 aria-label={translate("swapButton")}
                 title={translate("swapButton")}
               >
@@ -255,7 +253,7 @@ export function DictionarySearch() {
           <div className="flex min-w-0 flex-col gap-1 md:col-span-1 lg:col-span-2">
             <label
               htmlFor="target"
-              className="block min-h-[1.25rem] text-sm font-semibold leading-tight text-slate-700"
+              className="block min-h-[1.25rem] text-sm font-semibold leading-tight text-brand-text"
             >
               {translate("targetLabel")}
             </label>
@@ -263,7 +261,7 @@ export function DictionarySearch() {
               id="target"
               value={targetLanguage}
               onChange={(e) => setTargetLanguage(e.target.value as LangCode)}
-              className="box-border min-h-11 w-full min-w-0 rounded-2xl border border-slate-200 bg-white px-3 py-3 text-base text-slate-900 shadow-sm outline-none transition-all duration-300 focus:border-indigo-300 focus:ring-4 focus:ring-indigo-200/60 md:bg-white/70 md:backdrop-blur-md"
+              className="select-field"
             >
               {SUPPORTED_LANGUAGES.map((code) => (
                 <option key={`tgt-${code}`} value={code}>
@@ -275,7 +273,7 @@ export function DictionarySearch() {
           <div className="flex min-w-0 flex-col gap-1 md:col-span-1 lg:col-span-4">
             <label
               htmlFor="difficulty"
-              className="block min-h-[1.25rem] text-sm font-semibold leading-tight text-slate-700"
+              className="block min-h-[1.25rem] text-sm font-semibold leading-tight text-brand-text"
             >
               {translate("difficultyLabel")}
             </label>
@@ -283,7 +281,7 @@ export function DictionarySearch() {
               id="difficulty"
               value={difficulty}
               onChange={(e) => setDifficulty(e.target.value as DifficultyLevel)}
-              className="box-border min-h-11 w-full min-w-0 rounded-2xl border border-slate-200 bg-white px-3 py-3 text-base text-slate-900 shadow-sm outline-none transition-all duration-300 focus:border-indigo-300 focus:ring-4 focus:ring-indigo-200/60 md:bg-white/70 md:backdrop-blur-md"
+              className="select-field"
             >
               <option value="A1">{translate("levelA1")}</option>
               <option value="A2">{translate("levelA2")}</option>
@@ -304,21 +302,17 @@ export function DictionarySearch() {
               type="button"
               onClick={() => void runSearch()}
               disabled={loading}
-              className="inline-flex min-h-11 w-full min-w-0 items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-indigo-500 to-violet-600 px-6 text-sm font-semibold text-white shadow-lg transition-transform duration-300 hover:shadow-xl active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60 sm:min-h-[44px] lg:w-auto lg:max-w-[12rem] lg:px-5 lg:hover:scale-[1.02]"
+              className="btn-primary w-full min-w-0 !min-h-12 text-base lg:w-auto lg:min-w-[11rem]"
             >
-              {loading && <Spinner className="size-4 border-indigo-200 border-t-white" />}
+              {loading && <Spinner className="size-4 border-white/30 border-t-white" />}
               {translate("searchButton")}
             </button>
           </div>
         </div>
 
-        {error && (
-          <p className="mt-4 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800">
-            {error}
-          </p>
-        )}
+        {error && <p className="alert-error mt-5">{error}</p>}
         {validationError?.code === "wrong_language" && (
-          <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900">
+          <div className="alert-warning mt-5">
             <p>
               {translate("wrongLanguageError", {
                 sourceLang: formatLangName(validationError.sourceLanguage),
@@ -328,7 +322,7 @@ export function DictionarySearch() {
             <button
               type="button"
               onClick={() => void switchDirectionAndSearch()}
-              className="mt-2 inline-flex min-h-11 w-full items-center justify-center rounded-xl px-3 py-2 text-left text-sm text-blue-700 underline underline-offset-2 hover:bg-blue-50 hover:text-blue-800 sm:w-auto"
+              className="mt-3 inline-flex min-h-11 w-full items-center justify-center rounded-input bg-brand-gradient px-4 py-2 text-left text-sm font-semibold text-white shadow-sm transition hover:brightness-105 sm:w-auto"
             >
               {translate("switchSuggestion", {
                 suggestedLang: formatLangName(validationError.suggestedLanguage),
@@ -338,12 +332,12 @@ export function DictionarySearch() {
           </div>
         )}
         {validationError?.code === "not_found" && (
-          <p className="mt-4 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-800">
+          <p className="alert-error mt-5">
             {translate("notFoundError", { word: validationError.word })}
           </p>
         )}
         {validationError?.code === "wrong_language_detected" && (
-          <div className="mt-4 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900">
+          <div className="alert-warning mt-5">
             <p>
               {translate("wrongLanguageError", {
                 sourceLang: formatLangName(validationError.sourceLanguage),
@@ -353,7 +347,7 @@ export function DictionarySearch() {
             <button
               type="button"
               onClick={() => void switchSourceToDetectedAndSearch()}
-              className="mt-2 inline-flex min-h-11 w-full items-center justify-center rounded-xl px-3 py-2 text-left text-sm text-blue-700 underline underline-offset-2 hover:bg-blue-50 hover:text-blue-800 sm:w-auto"
+              className="mt-3 inline-flex min-h-11 w-full items-center justify-center rounded-input bg-brand-gradient px-4 py-2 text-left text-sm font-semibold text-white shadow-sm transition hover:brightness-105 sm:w-auto"
             >
               {translate("translateFrom", {
                 lang: validationError.detectedLangName,

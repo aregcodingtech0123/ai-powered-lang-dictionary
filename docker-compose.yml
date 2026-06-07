@@ -31,8 +31,9 @@ services:
       - path: ./frontend/.env.local
         required: false
     environment:
-      # Browser must call the published host port, not the Docker service name.
+      # Browser calls the published host port; SSR inside Docker uses the service name.
       NEXT_PUBLIC_API_URL: http://localhost:3001
+      API_URL: http://backend:3001
     networks:
       - app-network
 

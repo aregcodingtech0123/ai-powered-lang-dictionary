@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cookies } from "next/headers";
 import { DictionaryEntryExtras } from "@/components/DictionaryEntryExtras";
+import { getServerApiBaseUrl } from "@/lib/api-base";
 
 type Params = { from: string; to: string; word: string };
 type PageProps = { params: Promise<Params> };
@@ -21,7 +22,7 @@ type DictionaryEntryResponse = {
 };
 
 async function getEntry(params: Params): Promise<DictionaryEntryResponse | null> {
-  const api = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
+  const api = getServerApiBaseUrl();
   const word = decodeURIComponent(params.word);
   const cookieStore = await cookies();
   const uiLangCookie = cookieStore.get("ui_lang")?.value ?? "en";
@@ -34,12 +35,16 @@ async function getEntry(params: Params): Promise<DictionaryEntryResponse | null>
     difficulty: "B1",
   });
 
-  const res = await fetch(`${api}/api/translate?${q.toString()}`, {
-    // Cache SSR responses for better LCP; backend also caches generation.
-    next: { revalidate: 60 * 60 * 24 * 7 },
-  });
-  if (!res.ok) return null;
-  return (await res.json()) as DictionaryEntryResponse;
+  try {
+    const res = await fetch(`${api}/api/translate?${q.toString()}`, {
+      // Cache SSR responses for better LCP; backend also caches generation.
+      next: { revalidate: 60 * 60 * 24 * 7 },
+    });
+    if (!res.ok) return null;
+    return (await res.json()) as DictionaryEntryResponse;
+  } catch {
+    return null;
+  }
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -160,67 +165,78 @@ export default async function DictionaryEntryPage({ params }: PageProps) {
   };
 
   return (
-    <main className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
-      <header className="mb-8 text-center">
-        <h1 className="text-3xl font-semibold tracking-tight text-neutral-900">{word}</h1>
-        <p className="mt-2 text-sm text-neutral-600">
+    <main className="mx-auto w-full max-w-6xl px-4 py-8 sm:px-6 sm:py-12">
+      <header className="mb-10 text-center">
+        <span className="chip-neutral mb-3">
           {resolvedParams.from.toUpperCase()} → {resolvedParams.to.toUpperCase()}
-        </p>
+        </span>
+        <h1 className="mt-3 text-3xl font-bold tracking-tight text-brand-text sm:text-4xl md:text-5xl">
+          <span className="text-brand-gradient">{word}</span>
+        </h1>
       </header>
 
-      <section className="space-y-6 rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm">
+      <section className="card-surface space-y-7 rounded-2xl p-6 sm:p-8">
         <div>
-          <h2 className="text-sm font-semibold tracking-wide text-neutral-700">
+          <h2 className="section-label">
             What does {word} mean in {resolvedParams.to.toUpperCase()}?
           </h2>
           {data.meanings.length > 0 ? (
-            <ul className="mt-2 list-inside list-disc text-neutral-800">
-              {data.meanings.map((m) => (
-                <li key={m}>{m}</li>
+            <ul className="mt-3 space-y-2 text-base leading-relaxed text-brand-text">
+              {data.meanings.map((m, i) => (
+                <li
+                  key={m}
+                  className="flex gap-3 rounded-input border border-brand-border/60 bg-slate-50/80 px-4 py-3"
+                >
+                  <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-brand-gradient text-xs font-bold text-white">
+                    {i + 1}
+                  </span>
+                  <span>{m}</span>
+                </li>
               ))}
             </ul>
           ) : (
-            <p className="mt-2 text-sm text-neutral-600">No meanings available for this entry.</p>
+            <p className="mt-3 text-sm text-brand-text-secondary">No meanings available for this entry.</p>
           )}
         </div>
 
-        <div>
-          <h2 className="text-sm font-semibold tracking-wide text-neutral-700">
-            What is {word}?
-          </h2>
-          <p className="mt-2 text-sm leading-relaxed text-neutral-800">
-            <strong>{word}</strong> {clippedExplanation}
+        <div className="rounded-card border border-indigo-100 bg-brand-gradient-subtle p-5 sm:p-6">
+          <h2 className="section-label !text-indigo-600">What is {word}?</h2>
+          <p className="mt-3 text-base leading-relaxed text-brand-text">
+            <strong className="text-brand-text">{word}</strong> {clippedExplanation}
           </p>
           <DictionaryEntryExtras synonyms={synonyms} antonyms={antonyms} usageNote={usageNote} />
         </div>
 
         <div>
-          <h2 className="text-sm font-semibold tracking-wide text-neutral-700">
-            How to use {word} in a sentence?
-          </h2>
-          <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm leading-relaxed text-neutral-800">
+          <h2 className="section-label">How to use {word} in a sentence?</h2>
+          <ol className="mt-4 space-y-3">
             {data.examples.map((item, i) => (
-              <li key={`${i}-${item.original.slice(0, 24)}`} className="mb-4">
-                <p className="font-medium text-neutral-900">
+              <li
+                key={`${i}-${item.original.slice(0, 24)}`}
+                className="rounded-card border border-brand-border bg-brand-card p-4 shadow-sm"
+              >
+                <p className="font-semibold text-brand-text">
+                  <span className="mr-2 inline-flex size-6 items-center justify-center rounded-full bg-indigo-100 text-xs font-bold text-brand-primary">
+                    {i + 1}
+                  </span>
                   {item.original}
                   {item.transliteration?.trim() ? (
-                    <span className="ml-2 text-sm italic font-normal text-neutral-500">
+                    <span className="ml-2 text-sm font-normal italic text-brand-text-secondary">
                       ({item.transliteration})
                     </span>
                   ) : null}
                 </p>
-                <p className="text-sm italic text-gray-600">{item.translated}</p>
+                <p className="mt-2 pl-8 text-sm italic text-brand-text-secondary">{item.translated}</p>
               </li>
             ))}
           </ol>
         </div>
 
-        <div>
-          <h2 className="text-sm font-semibold tracking-wide text-neutral-700">
-            What is the CEFR level of {word}?
-          </h2>
-          <p className="mt-2 text-sm text-neutral-700">
-            Example sentences for this page are generated at CEFR <strong>B1</strong> level by default.
+        <div className="rounded-card border border-cyan-100 bg-cyan-50/40 p-5">
+          <h2 className="section-label !text-cyan-700">What is the CEFR level of {word}?</h2>
+          <p className="mt-3 text-sm text-brand-text-secondary">
+            Example sentences for this page are generated at CEFR{" "}
+            <span className="chip-cyan !inline-flex">B1</span> level by default.
           </p>
         </div>
       </section>

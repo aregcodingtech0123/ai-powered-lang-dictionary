@@ -1,6 +1,7 @@
 import type { UiLanguage } from "./i18n";
+import { getClientApiBaseUrl } from "./api-base";
 
-const base = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:3001";
+const base = getClientApiBaseUrl();
 
 export type LangCode = UiLanguage;
 export type DifficultyLevel = "A1" | "A2" | "B1" | "B2" | "C1" | "C2";

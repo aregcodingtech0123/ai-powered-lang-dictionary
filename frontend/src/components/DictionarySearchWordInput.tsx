@@ -41,10 +41,10 @@ export const DictionarySearchWordInput = forwardRef<DictionarySearchWordInputHan
     const showClear = localWord.trim().length > 0 || hasSearchResult;
 
     return (
-      <div className={`flex min-w-0 flex-col gap-1 ${className}`}>
+      <div className={`flex min-w-0 flex-col gap-1.5 ${className}`}>
         <label
           htmlFor="word"
-          className="block min-h-[1.25rem] text-sm font-semibold leading-tight text-slate-700"
+          className="block min-h-[1.25rem] text-sm font-semibold leading-tight text-brand-text"
         >
           {wordLabel}
         </label>
@@ -59,13 +59,13 @@ export const DictionarySearchWordInput = forwardRef<DictionarySearchWordInputHan
               if (e.key === "Enter") onSubmit();
             }}
             placeholder={wordPlaceholder}
-            className="box-border min-h-11 w-full min-w-0 rounded-2xl border border-slate-200 bg-white py-3 pl-4 pr-14 text-base text-slate-900 shadow-sm outline-none placeholder:text-slate-400 transition-all duration-300 focus:border-indigo-300 focus:ring-4 focus:ring-indigo-200/60 md:bg-white/70 md:backdrop-blur-md"
+            className="input-field !min-h-12 py-3.5 pl-4 pr-14 text-base shadow-sm focus:shadow-search"
           />
           {showClear ? (
             <button
               type="button"
               onClick={onClear}
-              className="absolute right-1.5 top-1/2 inline-flex size-11 min-h-[44px] min-w-[44px] -translate-y-1/2 items-center justify-center rounded-xl text-lg text-slate-500 transition hover:bg-slate-100 hover:text-slate-900"
+              className="btn-ghost absolute right-1 top-1/2 size-10 min-h-10 min-w-10 -translate-y-1/2 !px-0 text-lg text-brand-text-secondary"
               aria-label="Clear"
               title="Clear"
             >
