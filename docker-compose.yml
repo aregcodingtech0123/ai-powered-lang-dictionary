@@ -11,7 +11,8 @@ services:
         required: false
     environment:
       PORT: 3001
-      CORS_ORIGIN: http://frontend:3000
+      # Browser on the host uses Origin http://localhost:3000, not the Docker service name.
+      CORS_ORIGIN: http://localhost:3000,http://127.0.0.1:3000,http://frontend:3000
     networks:
       - app-network
 
@@ -19,6 +20,8 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:3001
     container_name: dictionary-frontend
     depends_on:
       - backend
@@ -28,7 +31,8 @@ services:
       - path: ./frontend/.env.local
         required: false
     environment:
-      NEXT_PUBLIC_API_URL: http://backend:3001
+      # Browser must call the published host port, not the Docker service name.
+      NEXT_PUBLIC_API_URL: http://localhost:3001
     networks:
       - app-network
 

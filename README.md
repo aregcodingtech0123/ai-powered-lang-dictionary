@@ -66,6 +66,25 @@ npm start
 
 Set `NEXT_PUBLIC_API_URL` to your deployed API URL for production.
 
+## Rate limiting
+
+All requests are counted by a **global** limiter before routing (including unknown paths and JSON `404` responses). Dictionary routes also have stricter per-endpoint caps.
+
+| Variable | Default | Purpose |
+|----------|---------|---------|
+| `RATE_LIMIT_WINDOW_MS` | `60000` | Sliding window length (ms) |
+| `RATE_LIMIT_MAX_REQUESTS` | `100` | Max requests per IP per window (all routes) |
+| `RATE_LIMIT_TRANSLATE_GET_MAX` | `30` | Max `GET /api/translate` per window |
+| `RATE_LIMIT_REGENERATE_POST_MAX` | `5` | Max `POST /api/translate/regenerate` per window |
+
+Responses include `RateLimit-*` and `X-RateLimit-*` headers (`Limit`, `Remaining`, `Reset`) plus `Retry-After` on `429`.
+
+Example for tighter local testing: `RATE_LIMIT_WINDOW_MS=15000` and `RATE_LIMIT_MAX_REQUESTS=100`.
+
+## Testing
+
+See [docs/TESTING.md](docs/TESTING.md) for QA scripts, exit codes (`0` success, `10` intentional stop, `1` failure), and CI examples.
+
 ## Project layout
 
 - `backend/src` — Express app, mock dictionary, Gemini `aiService`

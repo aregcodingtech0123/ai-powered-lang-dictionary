@@ -1,5 +1,5 @@
 import { Router, type Response } from "express";
-import rateLimit from "express-rate-limit";
+import { regeneratePostLimiter, translateGetLimiter } from "../rateLimit.js";
 import { internalServerErrorMessage } from "../httpErrors.js";
 import { validateWordInput } from "../wordValidation.js";
 import { lookupMeanings } from "../services/mockDictionary.js";
@@ -12,33 +12,6 @@ import {
 } from "../services/aiService.js";
 
 export const translateRouter = Router();
-
-const RATE_LIMIT_WINDOW_MS = 60 * 1000;
-
-function sendRateLimitExceeded(
-  res: Response,
-  options: { windowMs: number }
-): void {
-  const retryAfterSec = Math.ceil(options.windowMs / 1000);
-  res.setHeader("Retry-After", String(retryAfterSec));
-  res.status(429).json({ error: "Too many requests" });
-}
-
-const translateGetLimiter = rateLimit({
-  windowMs: RATE_LIMIT_WINDOW_MS,
-  limit: 30,
-  standardHeaders: true,
-  legacyHeaders: false,
-  handler: (_req, res, _next, options) => sendRateLimitExceeded(res, options),
-});
-
-const regeneratePostLimiter = rateLimit({
-  windowMs: RATE_LIMIT_WINDOW_MS,
-  limit: 5,
-  standardHeaders: true,
-  legacyHeaders: false,
-  handler: (_req, res, _next, options) => sendRateLimitExceeded(res, options),
-});
 
 type LanguageCode = string;
 type DifficultyLevel = "A1" | "A2" | "B1" | "B2" | "C1" | "C2";

@@ -1,0 +1,24 @@
+{
+  "name": "ai-powered-language-dictionary",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Monorepo scripts for targeted service management and QA",
+  "scripts": {
+    "stop:frontend": "node scripts/stop-service.mjs frontend",
+    "stop:backend": "node scripts/stop-service.mjs backend",
+    "stop:frontend-dev": "node scripts/stop-service.mjs frontend-dev",
+    "stop:frontend-prod": "node scripts/stop-service.mjs frontend-prod",
+    "stop:backend-dev": "node scripts/stop-service.mjs backend-dev",
+    "stop:backend-prod": "node scripts/stop-service.mjs backend-prod",
+    "restart:frontend-dev": "node scripts/restart-service.mjs frontend-dev",
+    "restart:frontend-prod": "node scripts/restart-service.mjs frontend-prod",
+    "restart:backend-dev": "node scripts/restart-service.mjs backend-dev",
+    "restart:backend-prod": "node scripts/restart-service.mjs backend-prod",
+    "clean:rebuild": "node scripts/clean-rebuild.mjs",
+    "clean:frontend": "node scripts/clean-rebuild.mjs",
+    "test:run": "node scripts/test-run.mjs",
+    "test:api": "node scripts/qa-api-tests.mjs",
+    "test:full": "node scripts/test-full.mjs",
+    "test:full:skip-prep": "node scripts/test-full.mjs --skip-prep"
+  }
+}

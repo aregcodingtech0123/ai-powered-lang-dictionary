@@ -3,6 +3,7 @@ import compression from "compression";
 import cors from "cors";
 import express from "express";
 import helmet from "helmet";
+import { globalRateLimiter } from "./rateLimit.js";
 import { translateRouter } from "./routes/translate.js";
 
 const app = express();
@@ -35,11 +36,18 @@ app.use(
 );
 app.use(express.json({ limit: "1kb" }));
 
+// Global rate limit — runs before all routes so 404/unknown paths are counted too.
+app.use(globalRateLimiter);
+
 app.get("/health", (_req, res) => {
   res.json({ ok: true });
 });
 
 app.use("/api", translateRouter);
+
+app.use((_req, res) => {
+  res.status(404).json({ error: "Not found" });
+});
 
 app.use(
   (
