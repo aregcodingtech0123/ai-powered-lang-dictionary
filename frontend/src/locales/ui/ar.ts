@@ -1,7 +1,7 @@
 import type { Dictionary } from "../types";
 const ui: Dictionary = {
-    navTitle: "قاموس الذكاء الاصطناعي",
-    heroSubtitle: "يعرض المعاني وشرحا قصيرا وثلاث جمل مثال.",
+    navTitle: "VocaBeacon",
+    heroSubtitle: "معانٍ متعددة اللغات وشروحات بالذكاء الاصطناعي وجمل مثال وفق CEFR لأي زوج لغوي.",
     wordLabel: "الكلمة",
     wordHeader: "الكلمة",
     wordInputPlaceholder: "مثال: run",
@@ -28,7 +28,7 @@ const ui: Dictionary = {
     notFoundError: "لم يتم العثور على \"{word}\".",
     navAbout: "حول",
     navContact: "اتصال",
-    footerRights: "© 2026 قاموس الذكاء الاصطناعي. جميع الحقوق محفوظة.",
+    footerRights: "© 2026 VocaBeacon. جميع الحقوق محفوظة.",
     footerPrivacy: "سياسة الخصوصية",
     footerTerms: "شروط الخدمة",
     translateFrom: "ترجمة من: {lang}",

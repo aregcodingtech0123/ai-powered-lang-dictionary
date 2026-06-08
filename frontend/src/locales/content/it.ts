@@ -3,7 +3,7 @@ const content: ContentI18n = {
     howItWorks: {
       title: "Come funziona",
       paragraphs: [
-        "AI Dictionary trasforma una parola in una voce didattica: significati concisi nella lingua di arrivo, una breve spiegazione e frasi di esempio con uso reale. L’obiettivo è passare da “la riconosco” a “la so usare correttamente”.",
+        "VocaBeacon trasforma una parola in una voce didattica: significati concisi nella lingua di arrivo, una breve spiegazione e frasi di esempio con uso reale. L’obiettivo è passare da “la riconosco” a “la so usare correttamente”.",
         "Gli esempi seguono linee guida CEFR (A1–C2). Ai livelli bassi si usano vocaboli frequenti e grammatica semplice; ai livelli alti compaiono più sfumature, modi di dire e strutture complesse. Così ti alleni al livello giusto.",
         "A seconda della coppia di lingue, il sistema può combinare dati locali e generazione IA. In ogni caso le voci sono pagine di riferimento testuali, utili per studenti e motori di ricerca.",
       ],

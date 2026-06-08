@@ -1,6 +1,6 @@
 import type { LegalTranslations } from "../types";
 const legal: LegalTranslations = {
-    about: { title: "À propos", intro: ["AI Dictionary est une plateforme multilingue avec IA et exemples CECRL pour apprendre le vocabulaire en contexte."], sections: [
+    about: { title: "À propos", intro: ["VocaBeacon est une plateforme multilingue avec IA et exemples CECRL pour apprendre le vocabulaire en contexte."], sections: [
       { heading: "Mission", paragraphs: ["Créer des entrées de référence utiles : sens, nuance et usage, pas seulement une traduction."] },
       { heading: "CECRL", paragraphs: ["Les exemples suivent le CECRL (A1–C2) pour adapter la difficulté."] },
       { heading: "Technologie", paragraphs: ["Selon la paire, nous combinons données locales et génération IA (Gemini)."] },

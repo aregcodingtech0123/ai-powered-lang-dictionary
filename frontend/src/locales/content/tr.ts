@@ -3,7 +3,7 @@ const content: ContentI18n = {
     howItWorks: {
       title: "Nasıl çalışır?",
       paragraphs: [
-        "AI Sözlük, tek bir kelimeyi öğrenme odaklı bir girdiye dönüştürür: hedef dilde kısa anlamlar, anlaşılır bir açıklama ve gerçek kullanım gösteren örnek cümleler. Amaç, “kelimeyi tanıdım”dan “kelimeyi doğru kullanıyorum”a geçmenizi sağlamaktır.",
+        "VocaBeacon, tek bir kelimeyi öğrenme odaklı bir girdiye dönüştürür: hedef dilde kısa anlamlar, anlaşılır bir açıklama ve gerçek kullanım gösteren örnek cümleler. Amaç, “kelimeyi tanıdım”dan “kelimeyi doğru kullanıyorum”a geçmenizi sağlamaktır.",
         "Örnek cümleler CEFR (A1–C2) rehberliğine göre üretilir. Düşük seviyelerde kısa ve sık kullanılan kelimeler ile basit dil bilgisi; yüksek seviyelerde daha nüanslı yapılar, deyimler ve akademik ifadeler kullanılır. Böylece kelimeyi doğru zorlukta pratik edersiniz.",
         "Dil çiftine göre sistem, yerel sözlük verisini AI üretimiyle birleştirebilir. Kaynaktan bağımsız olarak girdiler, hem öğrenenler hem de arama motorları için metin odaklı referans sayfaları olarak sunulur.",
       ],

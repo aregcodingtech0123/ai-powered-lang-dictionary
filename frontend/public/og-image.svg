@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="VocaBeacon">
+  <defs>
+    <linearGradient id="brand" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4F46E5"/>
+      <stop offset="50%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#F8FAFC"/>
+  <circle cx="200" cy="120" r="280" fill="#4F46E5" opacity="0.08"/>
+  <circle cx="1000" cy="80" r="220" fill="#06B6D4" opacity="0.1"/>
+  <rect x="80" y="180" width="1040" height="320" rx="32" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="120" y="290" font-family="system-ui, sans-serif" font-size="72" font-weight="700" fill="url(#brand)">VocaBeacon</text>
+  <text x="120" y="360" font-family="system-ui, sans-serif" font-size="36" fill="#475569">Your beacon for every word.</text>
+  <text x="120" y="430" font-family="system-ui, sans-serif" font-size="28" fill="#0F172A">AI Multilingual Dictionary &amp; Vocabulary Guide</text>
+</svg>

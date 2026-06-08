@@ -1,9 +1,10 @@
 import type { MetadataRoute } from "next";
 import { SUPPORTED_LANGUAGES } from "@/lib/i18n";
 import { POPULAR_WORDS_BY_SOURCE } from "@/lib/popular-words";
+import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://ai-dictionary.com";
+  const base = SITE_URL;
   const now = new Date();
 
   const dictionaryUrls: MetadataRoute.Sitemap = [];

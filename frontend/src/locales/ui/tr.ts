@@ -1,7 +1,7 @@
 import type { Dictionary } from "../types";
 const ui: Dictionary = {
-    navTitle: "AI Sözlük",
-    heroSubtitle: "İngilizce ↔ Türkçe anlamlar, kısa bir AI açıklaması ve üç örnek cümle.",
+    navTitle: "VocaBeacon",
+    heroSubtitle: "Her dil çifti için çok dilli anlamlar, AI açıklamaları ve CEFR uyumlu örnek cümleler.",
     wordLabel: "Kelime",
     wordHeader: "Kelime",
     wordInputPlaceholder: "ör. koşmak",
@@ -28,7 +28,7 @@ const ui: Dictionary = {
     notFoundError: "\"{word}\" bulunamadı.",
     navAbout: "Hakkında",
     navContact: "İletişim",
-    footerRights: "© 2026 AI Sözlük. Tüm hakları saklıdır.",
+    footerRights: "© 2026 VocaBeacon. Tüm hakları saklıdır.",
     footerPrivacy: "Gizlilik Politikası",
     footerTerms: "Kullanım Koşulları",
     translateFrom: "Şu dilden çevir: {lang}",

@@ -1,7 +1,7 @@
 import type { Dictionary } from "../types";
 const ui: Dictionary = {
-    navTitle: "AI词典",
-    heroSubtitle: "显示释义、简短AI解释和三个例句。",
+    navTitle: "VocaBeacon",
+    heroSubtitle: "任意语言对的多语言释义、AI 解释和基于 CEFR 的例句。",
     wordLabel: "单词",
     wordHeader: "单词",
     wordInputPlaceholder: "例如：run",
@@ -28,7 +28,7 @@ const ui: Dictionary = {
     notFoundError: "未找到“{word}”。",
     navAbout: "关于",
     navContact: "联系",
-    footerRights: "© 2026 AI词典。保留所有权利。",
+    footerRights: "© 2026 VocaBeacon。保留所有权利。",
     footerPrivacy: "隐私政策",
     footerTerms: "服务条款",
     translateFrom: "从 {lang} 翻译",

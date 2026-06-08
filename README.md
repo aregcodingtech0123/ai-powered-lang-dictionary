@@ -1,6 +1,6 @@
-# AI-powered language dictionary (MVP)
+# VocaBeacon (MVP)
 
-English ↔ Turkish dictionary with mock glosses, plus Google **Gemini** explanations and three example sentences. Frontend: **Next.js** + **Tailwind**. Backend: **Express** + **TypeScript**.
+**VocaBeacon** is an AI-powered multilingual dictionary and language-learning platform. Look up words in any supported language pair and get meanings, Google **Gemini** explanations, CEFR-based example sentences, synonyms, antonyms, and usage notes. Frontend: **Next.js** + **Tailwind**. Backend: **Express** + **TypeScript**.
 
 ## Prerequisites
 

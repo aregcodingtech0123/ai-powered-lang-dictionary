@@ -3,7 +3,7 @@ const content: ContentI18n = {
     howItWorks: {
       title: "How it works",
       paragraphs: [
-        "AI Dictionary turns a single word into a learning-friendly entry: concise meanings in your target language, a short explanation, and example sentences that show real usage. The goal is to help you move from “I recognized the word” to “I can use the word correctly”.",
+        "VocaBeacon turns a single word into a learning-friendly entry: concise meanings in your target language, a short explanation, and example sentences that show real usage. The goal is to help you move from “I recognized the word” to “I can use the word correctly”.",
         "Example sentences follow CEFR guidance (A1–C2). Lower levels use short, high‑frequency vocabulary and simple grammar; higher levels include more nuanced structures, idioms, and academic phrasing. This helps you practice vocabulary at the right difficulty.",
         "Depending on the language pair, the system can combine local dictionary data with AI generation. Regardless of the source, entries are formatted as text-first reference pages for both learners and search engines.",
       ],
@@ -14,7 +14,7 @@ const content: ContentI18n = {
         {
           question: "What are CEFR levels (A1–C2)?",
           answer:
-            "CEFR is a widely used framework for language proficiency, from beginner (A1) to mastery (C2). In this dictionary, CEFR levels control the complexity and vocabulary of example sentences.",
+            "CEFR is a widely used framework for language proficiency, from beginner (A1) to mastery (C2). In VocaBeacon, CEFR levels control the complexity and vocabulary of example sentences.",
         },
         {
           question: "Is the AI explanation always correct?",

@@ -1,6 +1,6 @@
 import type { LegalTranslations } from "../types";
 const legal: LegalTranslations = {
-    about: { title: "概要", intro: ["AI Dictionary は多言語の学習を支援するAI辞書です。CEFRに沿った例文で文脈理解を助けます。"], sections: [
+    about: { title: "概要", intro: ["VocaBeacon は多言語の学習を支援するAI辞書です。CEFRに沿った例文で文脈理解を助けます。"], sections: [
       { heading: "目的", paragraphs: ["単なる翻訳ではなく、意味・ニュアンス・用法を学べる参照ページを提供します。"] },
       { heading: "CEFR", paragraphs: ["CEFR（A1〜C2）に基づいて例文の難易度を調整します。"] },
       { heading: "技術", paragraphs: ["言語ペアにより、ローカルデータとAI生成（Gemini）を組み合わせます。"] },

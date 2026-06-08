@@ -15,9 +15,7 @@ export const HomeHowItWorksSection = memo(function HomeHowItWorksSection({
       dir={isRtl ? "rtl" : undefined}
       className={`card-surface-interactive mt-12 rounded-2xl p-5 sm:p-6 md:p-8 ${isRtl ? "text-right" : ""}`}
     >
-      <h2 className="text-xl font-bold tracking-tight text-brand-text sm:text-2xl">
-        <span className="text-brand-gradient">{howItWorks.title}</span>
-      </h2>
+      <h2 className="section-title text-xl font-bold sm:text-2xl">{howItWorks.title}</h2>
       <div className="mt-4 space-y-4 content-prose">
         {howItWorks.paragraphs.map((p) => (
           <p key={p}>{p}</p>
@@ -39,9 +37,7 @@ export const HomeFaqSection = memo(function HomeFaqSection({
       dir={isRtl ? "rtl" : undefined}
       className={`card-surface-interactive mt-8 rounded-2xl p-5 sm:p-6 md:p-8 ${isRtl ? "text-right" : ""}`}
     >
-      <h2 className="text-xl font-bold tracking-tight text-brand-text sm:text-2xl">
-        <span className="text-brand-gradient">{faq.title}</span>
-      </h2>
+      <h2 className="section-title text-xl font-bold sm:text-2xl">{faq.title}</h2>
       <div className="mt-6 space-y-5">
         {faq.items.map((item) => (
           <div

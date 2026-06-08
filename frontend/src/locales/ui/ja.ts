@@ -1,7 +1,7 @@
 import type { Dictionary } from "../types";
 const ui: Dictionary = {
-    navTitle: "AI辞書",
-    heroSubtitle: "意味、短いAI説明、例文3つを表示します。",
+    navTitle: "VocaBeacon",
+    heroSubtitle: "あらゆる言語ペア向けの多言語の意味、AI説明、CEFRに基づく例文。",
     wordLabel: "単語",
     wordHeader: "単語",
     wordInputPlaceholder: "例: run",
@@ -28,7 +28,7 @@ const ui: Dictionary = {
     notFoundError: "「{word}」は見つかりませんでした。",
     navAbout: "概要",
     navContact: "お問い合わせ",
-    footerRights: "© 2026 AI辞書。無断転載を禁じます。",
+    footerRights: "© 2026 VocaBeacon. 無断転載を禁じます。",
     footerPrivacy: "プライバシーポリシー",
     footerTerms: "利用規約",
     translateFrom: "{lang} から翻訳",

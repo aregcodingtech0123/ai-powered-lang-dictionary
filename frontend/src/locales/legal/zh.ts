@@ -1,6 +1,6 @@
 import type { LegalTranslations } from "../types";
 const legal: LegalTranslations = {
-    about: { title: "关于", intro: ["AI 词典是一款多语言 AI 学习工具，通过 CEFR 例句帮助你在语境中掌握词汇。"], sections: [
+    about: { title: "关于", intro: ["VocaBeacon 是一款多语言 AI 学习工具，通过 CEFR 例句帮助你在语境中掌握词汇。"], sections: [
       { heading: "使命", paragraphs: ["不仅是翻译，更提供可学习的参考词条：释义、解释与用例。"] },
       { heading: "CEFR", paragraphs: ["例句参考 CEFR（A1–C2）调整难度与用词。"] },
       { heading: "技术", paragraphs: ["按语言对结合本地数据与 AI 生成（Gemini）。"] },

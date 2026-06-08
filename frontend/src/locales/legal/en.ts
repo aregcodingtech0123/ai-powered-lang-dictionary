@@ -3,7 +3,7 @@ const legal: LegalTranslations = {
     about: {
       title: "About",
       intro: [
-        "AI Dictionary is a multilingual learning platform that helps you understand meaning, nuance, and usage across languages with AI-assisted explanations and CEFR-aligned examples.",
+        "VocaBeacon is a multilingual learning platform that helps you understand meaning, nuance, and usage across languages with AI-assisted explanations and CEFR-aligned examples.",
       ],
       sections: [
         {
@@ -29,7 +29,7 @@ const legal: LegalTranslations = {
     privacy: {
       title: "Privacy Policy",
       intro: [
-        "This Privacy Policy explains how we collect, use, share, and protect information when you use AI Dictionary.",
+        "This Privacy Policy explains how we collect, use, share, and protect information when you use VocaBeacon.",
       ],
       sections: [
         {
@@ -65,7 +65,7 @@ const legal: LegalTranslations = {
     },
     terms: {
       title: "Terms of Service",
-      intro: ["These Terms govern your access to and use of AI Dictionary."],
+      intro: ["These Terms govern your access to and use of VocaBeacon."],
       sections: [
         {
           heading: "1. AI content",

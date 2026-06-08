@@ -3,7 +3,7 @@ const content: ContentI18n = {
     howItWorks: {
       title: "Cómo funciona",
       paragraphs: [
-        "AI Dictionary convierte una palabra en una entrada educativa: significados concisos en el idioma de destino, una explicación breve y frases de ejemplo con uso real. El objetivo es pasar de “la reconozco” a “la uso correctamente”.",
+        "VocaBeacon convierte una palabra en una entrada educativa: significados concisos en el idioma de destino, una explicación breve y frases de ejemplo con uso real. El objetivo es pasar de “la reconozco” a “la uso correctamente”.",
         "Las frases siguen la guía del MCER (A1–C2). En niveles bajos se usa vocabulario frecuente y gramática simple; en niveles altos aparecen más matices, expresiones e ideas más complejas. Así practicas al nivel adecuado.",
         "Según el par de idiomas, el sistema puede combinar datos locales con generación por IA. En cualquier caso, las entradas se presentan como páginas de referencia centradas en texto, útiles para estudiantes y buscadores.",
       ],

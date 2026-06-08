@@ -38,6 +38,8 @@ const config: Config = {
       backgroundImage: {
         "brand-gradient":
           "linear-gradient(135deg, #4F46E5 0%, #7C3AED 50%, #06B6D4 100%)",
+        "accent-gradient":
+          "linear-gradient(135deg, #22D3EE 0%, #06B6D4 50%, #0891B2 100%)",
         "brand-gradient-subtle":
           "linear-gradient(135deg, rgb(79 70 229 / 0.08) 0%, rgb(124 58 237 / 0.06) 50%, rgb(6 182 212 / 0.08) 100%)",
         "page-gradient":

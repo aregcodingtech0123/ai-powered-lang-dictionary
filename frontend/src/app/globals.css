@@ -86,7 +86,7 @@
   }
 
   .btn-primary {
-    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-input bg-brand-gradient px-6 text-sm font-semibold text-white shadow-card transition-all duration-200 hover:shadow-card-hover hover:brightness-105 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:brightness-100 disabled:active:scale-100;
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-input bg-accent-gradient px-6 text-sm font-semibold text-white shadow-card transition-all duration-200 hover:shadow-card-hover hover:brightness-105 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:brightness-100 disabled:active:scale-100;
   }
 
   .btn-secondary {
@@ -117,6 +117,10 @@
     @apply rounded-input border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800;
   }
 
+  .alert-accent-success {
+    @apply rounded-input border border-cyan-200 bg-cyan-50/80 px-4 py-3 text-sm font-medium text-cyan-900;
+  }
+
   .alert-warning {
     @apply rounded-input border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900;
   }
@@ -127,6 +131,14 @@
 
   .page-heading-gradient {
     @apply text-[1.75rem] font-bold leading-[1.15] tracking-tight sm:text-3xl md:text-4xl lg:text-[2.75rem];
+  }
+
+  .page-title {
+    @apply text-2xl font-bold tracking-tight text-brand-accent sm:text-3xl;
+  }
+
+  .section-title {
+    @apply text-xl font-semibold text-brand-accent;
   }
 
   .content-prose {

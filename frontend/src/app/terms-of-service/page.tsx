@@ -13,9 +13,7 @@ export default function TermsOfServicePage() {
       className={`mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 sm:py-12 ${isRtl ? "text-right" : ""}`}
     >
       <div className="card-surface rounded-2xl p-6 sm:p-8">
-        <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-          <span className="text-brand-gradient">{doc.title}</span>
-        </h1>
+        <h1 className="page-title">{doc.title}</h1>
 
         <section className="mt-6 space-y-4 content-prose">
           {doc.intro.map((p, i) => (
@@ -29,7 +27,7 @@ export default function TermsOfServicePage() {
               key={section.heading}
               className="rounded-card border border-brand-border bg-slate-50/50 p-5 sm:p-6"
             >
-              <h2 className="text-xl font-semibold text-brand-text">{section.heading}</h2>
+              <h2 className="section-title">{section.heading}</h2>
               {section.paragraphs?.map((p, i) => (
                 <p key={`${section.heading}-p-${i}`} className="mt-3">
                   {p}

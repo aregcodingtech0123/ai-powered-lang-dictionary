@@ -3,7 +3,7 @@ const legal: LegalTranslations = {
     about: {
       title: "Hakkında",
       intro: [
-        "AI Sözlük; anlam, nüans ve kullanım odaklı bir çok dilli öğrenme platformudur. AI açıklamaları ve CEFR uyumlu örneklerle kelimeleri daha doğru kullanmanıza yardımcı olur.",
+        "VocaBeacon; anlam, nüans ve kullanım odaklı bir çok dilli öğrenme platformudur. AI açıklamaları ve CEFR uyumlu örneklerle kelimeleri daha doğru kullanmanıza yardımcı olur.",
       ],
       sections: [
         { heading: "Misyon", paragraphs: ["Sadece çeviri değil; öğrenilebilir ve tekrar kullanılabilir referans girdileri üretmeyi hedefleriz."] },
@@ -13,7 +13,7 @@ const legal: LegalTranslations = {
     },
     privacy: {
       title: "Gizlilik Politikası",
-      intro: ["Bu politika, AI Sözlük’ü kullanırken bilgilerin nasıl toplandığını, kullanıldığını ve korunduğunu açıklar."],
+      intro: ["Bu politika, VocaBeacon’ü kullanırken bilgilerin nasıl toplandığını, kullanıldığını ve korunduğunu açıklar."],
       sections: [
         { heading: "1. Toplanan bilgiler", bullets: ["Sözlük sorguları: kelime ve dil/seviye tercihleri.", "İletişim: ad, e‑posta, konu, mesaj.", "Teknik: IP ve temel loglar."] },
         { heading: "2. Çerezler", paragraphs: ["Temel işlevler ve tercihler (ör. arayüz dili) için çerez kullanabiliriz.", "Reklam etkinse üçüncü taraflar reklam sunumu/ölçümü için çerez kullanabilir."] },
@@ -23,7 +23,7 @@ const legal: LegalTranslations = {
     },
     terms: {
       title: "Kullanım Şartları",
-      intro: ["Bu şartlar AI Sözlük’e erişiminizi ve kullanımınızı düzenler."],
+      intro: ["Bu şartlar VocaBeacon’e erişiminizi ve kullanımınızı düzenler."],
       sections: [
         { heading: "1. AI içeriği", paragraphs: ["AI çıktıları eğitim amaçlıdır ve hatalı olabilir. Kritik kullanımda doğrulayın."] },
         { heading: "2. Kullanıcı sorumlulukları", bullets: ["Hukuka uygun kullanın.", "Hizmeti kötüye kullanmayın.", "Performansı bozan otomasyon/scraping yapmayın."] },

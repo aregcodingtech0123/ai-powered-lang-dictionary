@@ -1,7 +1,7 @@
 import type { Dictionary } from "../types";
 const ui: Dictionary = {
-    navTitle: "AI Dictionary",
-    heroSubtitle: "English ↔ Turkish meanings, a short AI explanation, and three example sentences.",
+    navTitle: "VocaBeacon",
+    heroSubtitle: "Multilingual meanings, AI explanations, and CEFR-based example sentences for any language pair.",
     wordLabel: "Word",
     wordHeader: "Word",
     wordInputPlaceholder: "e.g. run",
@@ -28,7 +28,7 @@ const ui: Dictionary = {
     notFoundError: "\"{word}\" was not found.",
     navAbout: "About",
     navContact: "Contact",
-    footerRights: "© 2026 AI Dictionary. All rights reserved.",
+    footerRights: "© 2026 VocaBeacon. All rights reserved.",
     footerPrivacy: "Privacy Policy",
     footerTerms: "Terms of Service",
     translateFrom: "Translate from: {lang}",

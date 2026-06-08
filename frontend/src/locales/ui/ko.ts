@@ -1,7 +1,7 @@
 import type { Dictionary } from "../types";
 const ui: Dictionary = {
-    navTitle: "AI 사전",
-    heroSubtitle: "뜻, 짧은 AI 설명, 예문 3개를 제공합니다.",
+    navTitle: "VocaBeacon",
+    heroSubtitle: "모든 언어 쌍에 대한 다국어 의미, AI 설명 및 CEFR 기반 예문.",
     wordLabel: "단어",
     wordHeader: "단어",
     wordInputPlaceholder: "예: run",
@@ -28,7 +28,7 @@ const ui: Dictionary = {
     notFoundError: "\"{word}\"를 찾을 수 없습니다.",
     navAbout: "소개",
     navContact: "문의",
-    footerRights: "© 2026 AI 사전. 모든 권리 보유.",
+    footerRights: "© 2026 VocaBeacon. 모든 권리 보유.",
     footerPrivacy: "개인정보 처리방침",
     footerTerms: "서비스 약관",
     translateFrom: "{lang}에서 번역",

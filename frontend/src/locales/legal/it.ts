@@ -1,6 +1,6 @@
 import type { LegalTranslations } from "../types";
 const legal: LegalTranslations = {
-    about: { title: "Informazioni", intro: ["AI Dictionary è una piattaforma multilingue con IA ed esempi CEFR per imparare il vocabolario in contesto."], sections: [
+    about: { title: "Informazioni", intro: ["VocaBeacon è una piattaforma multilingue con IA ed esempi CEFR per imparare il vocabolario in contesto."], sections: [
       { heading: "Missione", paragraphs: ["Creare voci di riferimento utili: significato, sfumature e uso."] },
       { heading: "CEFR", paragraphs: ["Gli esempi seguono CEFR (A1–C2) per regolare la difficoltà."] },
       { heading: "Tecnologia", paragraphs: ["A seconda della coppia, uniamo dati locali e generazione IA (Gemini)."] },

@@ -1,7 +1,7 @@
 import type { Dictionary } from "../types";
 const ui: Dictionary = {
-    navTitle: "Dictionnaire IA",
-    heroSubtitle: "Significations, breve explication IA et trois exemples.",
+    navTitle: "VocaBeacon",
+    heroSubtitle: "Significations multilingues, explications IA et exemples alignés sur le CECR pour toute paire de langues.",
     wordLabel: "Mot",
     wordHeader: "Mot",
     wordInputPlaceholder: "ex. courir",
@@ -28,7 +28,7 @@ const ui: Dictionary = {
     notFoundError: "\"{word}\" est introuvable.",
     navAbout: "A propos",
     navContact: "Contact",
-    footerRights: "© 2026 Dictionnaire IA. Tous droits reserves.",
+    footerRights: "© 2026 VocaBeacon. Tous droits réservés.",
     footerPrivacy: "Politique de confidentialite",
     footerTerms: "Conditions d'utilisation",
     translateFrom: "Traduire depuis : {lang}",

@@ -1,6 +1,6 @@
 import type { LegalTranslations } from "../types";
 const legal: LegalTranslations = {
-    about: { title: "حول", intro: ["AI Dictionary أداة تعليمية متعددة اللغات تساعد على تعلم المفردات بالسياق مع أمثلة وفق CEFR."], sections: [
+    about: { title: "حول", intro: ["VocaBeacon أداة تعليمية متعددة اللغات تساعد على تعلم المفردات بالسياق مع أمثلة وفق CEFR."], sections: [
       { heading: "الهدف", paragraphs: ["لسنا ترجمة فقط؛ بل صفحات مرجعية للتعلّم: معنى وشرح وأمثلة."] },
       { heading: "CEFR", paragraphs: ["نضبط صعوبة الأمثلة وفق CEFR ‏(A1–C2)."] },
       { heading: "التقنية", paragraphs: ["بحسب زوج اللغات، قد نجمع بيانات محلية مع توليد بالذكاء الاصطناعي (Gemini)."] },

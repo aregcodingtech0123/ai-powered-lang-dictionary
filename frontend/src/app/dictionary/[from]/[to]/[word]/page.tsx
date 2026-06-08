@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { cookies } from "next/headers";
 import { DictionaryEntryExtras } from "@/components/DictionaryEntryExtras";
+import { JsonLdScript } from "@/components/JsonLdScript";
 import { getServerApiBaseUrl } from "@/lib/api-base";
+import { getDictionarySeoLabels } from "@/lib/dictionary-seo-labels";
+import { buildBreadcrumbListGraph } from "@/lib/json-ld";
+import { createPageMetadata, ogImages } from "@/lib/metadata";
+import { formatLangName, type UiLanguage } from "@/lib/i18n";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 type Params = { from: string; to: string; word: string };
 type PageProps = { params: Promise<Params> };
@@ -21,12 +27,15 @@ type DictionaryEntryResponse = {
   }>;
 };
 
+async function getUiLang(): Promise<string> {
+  const cookieStore = await cookies();
+  return cookieStore.get("ui_lang")?.value?.split("-")[0] || "en";
+}
+
 async function getEntry(params: Params): Promise<DictionaryEntryResponse | null> {
   const api = getServerApiBaseUrl();
   const word = decodeURIComponent(params.word);
-  const cookieStore = await cookies();
-  const uiLangCookie = cookieStore.get("ui_lang")?.value ?? "en";
-  const uiLang = uiLangCookie.split("-")[0] || "en";
+  const uiLang = await getUiLang();
   const q = new URLSearchParams({
     from: params.from,
     to: params.to,
@@ -37,7 +46,6 @@ async function getEntry(params: Params): Promise<DictionaryEntryResponse | null>
 
   try {
     const res = await fetch(`${api}/api/translate?${q.toString()}`, {
-      // Cache SSR responses for better LCP; backend also caches generation.
       next: { revalidate: 60 * 60 * 24 * 7 },
     });
     if (!res.ok) return null;
@@ -50,30 +58,40 @@ async function getEntry(params: Params): Promise<DictionaryEntryResponse | null>
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const resolvedParams = await params;
   const word = decodeURIComponent(resolvedParams.word);
-  const title = `${word} (${resolvedParams.from}→${resolvedParams.to})`;
-  const description = `Definition, examples, and AI explanation for "${word}" from ${resolvedParams.from} to ${resolvedParams.to}.`;
+  const data = await getEntry(resolvedParams);
+  const firstMeaning = data?.meanings[0];
+  const title = `${word} meaning (${resolvedParams.from} → ${resolvedParams.to})`;
+  const description = firstMeaning
+    ? `${word} (${resolvedParams.from}→${resolvedParams.to}): ${firstMeaning.slice(0, 140)}. AI explanation and CEFR examples on ${SITE_NAME}.`
+    : `Look up "${word}" from ${resolvedParams.from} to ${resolvedParams.to}. Meanings, AI explanation, and CEFR examples on ${SITE_NAME}.`;
   const publishedAt = "2026-01-01T00:00:00.000Z";
   const modifiedAt = new Date().toISOString();
+  const path = `/dictionary/${resolvedParams.from}/${resolvedParams.to}/${resolvedParams.word}`;
 
-  return {
+  const base = createPageMetadata({
     title,
     description,
-    keywords: [word, "dictionary", "meaning", "examples", `${resolvedParams.from} to ${resolvedParams.to}`],
-    alternates: {
-      canonical: `/dictionary/${resolvedParams.from}/${resolvedParams.to}/${resolvedParams.word}`,
-    },
+    path,
+    ogType: "article",
+    keywords: [
+      word,
+      "dictionary",
+      "meaning",
+      "translation",
+      "examples",
+      `${resolvedParams.from} to ${resolvedParams.to}`,
+      "CEFR",
+      SITE_NAME,
+    ],
+    publishedTime: publishedAt,
+    modifiedTime: modifiedAt,
+  });
+
+  return {
+    ...base,
     openGraph: {
-      title,
-      description,
-      type: "article",
-      url: `https://ai-dictionary.com/dictionary/${resolvedParams.from}/${resolvedParams.to}/${resolvedParams.word}`,
-      publishedTime: publishedAt,
-      modifiedTime: modifiedAt,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
+      ...base.openGraph,
+      images: ogImages(`${word} — ${SITE_NAME}`),
     },
   };
 }
@@ -83,18 +101,70 @@ export default async function DictionaryEntryPage({ params }: PageProps) {
   const data = await getEntry(resolvedParams);
   if (!data) notFound();
 
+  const uiLang = await getUiLang();
+  const labels = getDictionarySeoLabels(uiLang);
+  const toLangName = formatLangName(resolvedParams.to as UiLanguage);
+
   const word = decodeURIComponent(resolvedParams.word);
   const synonyms = Array.isArray(data.synonyms) ? data.synonyms : [];
   const antonyms = Array.isArray(data.antonyms) ? data.antonyms : [];
   const usageNote = typeof data.usage_note === "string" ? data.usage_note.trim() : "";
-  const entryUrl = `https://ai-dictionary.com/dictionary/${resolvedParams.from}/${resolvedParams.to}/${resolvedParams.word}`;
+  const entryUrl = `${SITE_URL}/dictionary/${resolvedParams.from}/${resolvedParams.to}/${resolvedParams.word}`;
   const publishedAt = "2026-01-01T00:00:00.000Z";
   const modifiedAt = new Date().toISOString();
-  const firstMeaning = data.meanings[0] ?? "Meaning not available.";
-  const firstExampleOriginal = data.examples[0]?.original ?? "Example not available.";
-  const firstExampleTranslated = data.examples[0]?.translated ?? "Translation not available.";
+  const firstMeaning = data.meanings[0] ?? labels.noMeanings;
+  const firstExampleOriginal = data.examples[0]?.original ?? "";
+  const firstExampleTranslated = data.examples[0]?.translated ?? "";
   const firstTransliteration = data.examples.find((e) => e.transliteration?.trim())?.transliteration ?? undefined;
   const clippedExplanation = data.ai_explanation.replace(/^\s*(This word|It)\s+/i, "").trim();
+
+  const meaningQuestion = labels.meaningInTarget(word, toLangName);
+  const whatIsQuestion = labels.whatIs(word);
+  const exampleQuestion = labels.howToUse(word);
+  const cefrQuestion = labels.cefrLevel(word);
+
+  const faqEntities = [
+    {
+      "@type": "Question" as const,
+      name: meaningQuestion,
+      acceptedAnswer: { "@type": "Answer" as const, text: firstMeaning },
+    },
+    {
+      "@type": "Question" as const,
+      name: whatIsQuestion,
+      acceptedAnswer: {
+        "@type": "Answer" as const,
+        text: `${word} ${clippedExplanation}`.trim(),
+      },
+    },
+    {
+      "@type": "Question" as const,
+      name: exampleQuestion,
+      acceptedAnswer: {
+        "@type": "Answer" as const,
+        text:
+          firstExampleOriginal && firstExampleTranslated
+            ? `${firstExampleOriginal} — ${firstExampleTranslated}`
+            : labels.noMeanings,
+      },
+    },
+    {
+      "@type": "Question" as const,
+      name: cefrQuestion,
+      acceptedAnswer: { "@type": "Answer" as const, text: labels.cefrDefault },
+    },
+  ];
+
+  if (synonyms.length > 0) {
+    faqEntities.push({
+      "@type": "Question",
+      name: `What are synonyms of ${word}?`,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: synonyms.join(", "),
+      },
+    });
+  }
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -105,10 +175,10 @@ export default async function DictionaryEntryPage({ params }: PageProps) {
         name: word,
         inDefinedTermSet: {
           "@type": "DefinedTermSet",
-          name: "AI Dictionary",
-          url: "https://ai-dictionary.com",
+          name: SITE_NAME,
+          url: SITE_URL,
         },
-        description: clippedExplanation,
+        description: clippedExplanation || firstMeaning,
         alternateName: synonyms.length > 0 ? synonyms : undefined,
         termCode: `${resolvedParams.from}-${resolvedParams.to}`,
         phoneticText: firstTransliteration,
@@ -134,32 +204,33 @@ export default async function DictionaryEntryPage({ params }: PageProps) {
       {
         "@type": "FAQPage",
         "@id": `${entryUrl}#faq`,
-        mainEntity: [
-          {
-            "@type": "Question",
-            name: `What is the meaning of ${word}?`,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: firstMeaning,
-            },
-          },
-          {
-            "@type": "Question",
-            name: `Can you give an example sentence for ${word}?`,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: `${firstExampleOriginal} - ${firstExampleTranslated}`,
-            },
-          },
-        ],
+        mainEntity: faqEntities,
       },
+      buildBreadcrumbListGraph(
+        [
+          { name: SITE_NAME, url: SITE_URL },
+          { name: "Dictionary", url: `${SITE_URL}/` },
+          {
+            name: `${resolvedParams.from.toUpperCase()} → ${resolvedParams.to.toUpperCase()}`,
+            url: entryUrl,
+          },
+          { name: word, url: entryUrl },
+        ],
+        `${entryUrl}#breadcrumb`
+      ),
       {
         "@type": "WebPage",
         "@id": entryUrl,
         url: entryUrl,
         name: `${word} (${resolvedParams.from}→${resolvedParams.to})`,
+        description: firstMeaning,
         datePublished: publishedAt,
         dateModified: modifiedAt,
+        isPartOf: { "@id": `${SITE_URL}/#website` },
+        speakable: {
+          "@type": "SpeakableSpecification",
+          cssSelector: ["#dictionary-direct-answer", "h1"],
+        },
       },
     ],
   };
@@ -173,13 +244,19 @@ export default async function DictionaryEntryPage({ params }: PageProps) {
         <h1 className="mt-3 text-3xl font-bold tracking-tight text-brand-text sm:text-4xl md:text-5xl">
           <span className="text-brand-gradient">{word}</span>
         </h1>
+        {data.meanings.length > 0 ? (
+          <p
+            id="dictionary-direct-answer"
+            className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-brand-text-secondary sm:text-lg"
+          >
+            {labels.directAnswer(word, firstMeaning)}
+          </p>
+        ) : null}
       </header>
 
       <section className="card-surface space-y-7 rounded-2xl p-6 sm:p-8">
         <div>
-          <h2 className="section-label">
-            What does {word} mean in {resolvedParams.to.toUpperCase()}?
-          </h2>
+          <h2 className="section-label">{meaningQuestion}</h2>
           {data.meanings.length > 0 ? (
             <ul className="mt-3 space-y-2 text-base leading-relaxed text-brand-text">
               {data.meanings.map((m, i) => (
@@ -195,12 +272,12 @@ export default async function DictionaryEntryPage({ params }: PageProps) {
               ))}
             </ul>
           ) : (
-            <p className="mt-3 text-sm text-brand-text-secondary">No meanings available for this entry.</p>
+            <p className="mt-3 text-sm text-brand-text-secondary">{labels.noMeanings}</p>
           )}
         </div>
 
         <div className="rounded-card border border-indigo-100 bg-brand-gradient-subtle p-5 sm:p-6">
-          <h2 className="section-label !text-indigo-600">What is {word}?</h2>
+          <h2 className="section-label !text-indigo-600">{whatIsQuestion}</h2>
           <p className="mt-3 text-base leading-relaxed text-brand-text">
             <strong className="text-brand-text">{word}</strong> {clippedExplanation}
           </p>
@@ -208,7 +285,7 @@ export default async function DictionaryEntryPage({ params }: PageProps) {
         </div>
 
         <div>
-          <h2 className="section-label">How to use {word} in a sentence?</h2>
+          <h2 className="section-label">{exampleQuestion}</h2>
           <ol className="mt-4 space-y-3">
             {data.examples.map((item, i) => (
               <li
@@ -233,15 +310,12 @@ export default async function DictionaryEntryPage({ params }: PageProps) {
         </div>
 
         <div className="rounded-card border border-cyan-100 bg-cyan-50/40 p-5">
-          <h2 className="section-label !text-cyan-700">What is the CEFR level of {word}?</h2>
-          <p className="mt-3 text-sm text-brand-text-secondary">
-            Example sentences for this page are generated at CEFR{" "}
-            <span className="chip-cyan !inline-flex">B1</span> level by default.
-          </p>
+          <h2 className="section-label !text-cyan-700">{cefrQuestion}</h2>
+          <p className="mt-3 text-sm text-brand-text-secondary">{labels.cefrDefault}</p>
         </div>
       </section>
 
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <JsonLdScript data={jsonLd} />
     </main>
   );
 }

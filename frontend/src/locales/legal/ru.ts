@@ -1,6 +1,6 @@
 import type { LegalTranslations } from "../types";
 const legal: LegalTranslations = {
-    about: { title: "О проекте", intro: ["AI Dictionary — многоязычный обучающий словарь с ИИ и примерами по CEFR для изучения слов в контексте."], sections: [
+    about: { title: "О проекте", intro: ["VocaBeacon — многоязычный обучающий словарь с ИИ и примерами по CEFR для изучения слов в контексте."], sections: [
       { heading: "Цель", paragraphs: ["Не только перевод: справочные записи с значениями, объяснениями и примерами."] },
       { heading: "CEFR", paragraphs: ["Примеры подстраиваются по CEFR (A1–C2) для нужной сложности."] },
       { heading: "Технология", paragraphs: ["В зависимости от пары языков мы можем сочетать локальные данные и генерацию ИИ (Gemini)."] },

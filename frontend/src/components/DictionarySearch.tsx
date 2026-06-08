@@ -19,6 +19,7 @@ import {
   DictionarySearchWordInput,
   type DictionarySearchWordInputHandle,
 } from "./DictionarySearchWordInput";
+import { BrandMark } from "./BrandMark";
 import { HomeFaqSection, HomeHowItWorksSection } from "./HomeStaticSections";
 
 const MemoPopularWordsExpandable = memo(PopularWordsExpandable);
@@ -192,8 +193,8 @@ export function DictionarySearch() {
   return (
     <div ref={topRef} className="mx-auto w-full max-w-6xl overflow-x-hidden px-4 py-8 sm:px-6 sm:py-10 md:py-12">
       <header className="mb-10 text-center sm:mb-12">
-        <h1 className="page-heading-gradient">
-          <span className="text-brand-gradient">{translate("navTitle")}</span>
+        <h1 className="flex justify-center">
+          <BrandMark size="lg" />
         </h1>
         <p className="mx-auto mt-4 max-w-2xl content-prose">
           {translate("heroSubtitle")}
