@@ -21,17 +21,42 @@ app.use((_req, res, next) => {
   next();
 });
 
-const corsOrigins = process.env.CORS_ORIGIN
-  ? process.env.CORS_ORIGIN.split(",")
-      .map((o) => o.trim())
-      .filter(Boolean)
-  : ["http://localhost:3000", "http://127.0.0.1:3000", "http://frontend:3000"];
+function getAllowedOrigins(): string[] {
+  const origins = new Set<string>([
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+    "http://frontend:3000",
+  ]);
+
+  const frontendUrl = process.env.FRONTEND_URL?.trim();
+  if (frontendUrl) {
+    origins.add(frontendUrl);
+  }
+
+  if (process.env.CORS_ORIGIN) {
+    for (const origin of process.env.CORS_ORIGIN.split(",")) {
+      const trimmed = origin.trim();
+      if (trimmed) origins.add(trimmed);
+    }
+  }
+
+  return [...origins];
+}
+
+const allowedOrigins = getAllowedOrigins();
 
 app.use(
   cors({
-    origin: corsOrigins,
-    methods: ["GET", "POST"],
-    credentials: false,
+    origin(origin, callback) {
+      // Non-browser clients (SSR, health checks) may omit Origin.
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+      callback(new Error(`CORS blocked for origin: ${origin}`));
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
   })
 );
 app.use(express.json({ limit: "1kb" }));

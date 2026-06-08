@@ -11,8 +11,8 @@ services:
         required: false
     environment:
       PORT: 3001
-      # Browser on the host uses Origin http://localhost:3000, not the Docker service name.
-      CORS_ORIGIN: http://localhost:3000,http://127.0.0.1:3000,http://frontend:3000
+      # localhost origins are always allowed; CORS_ORIGIN adds Docker/extra hosts.
+      CORS_ORIGIN: http://frontend:3000
     networks:
       - app-network
 
