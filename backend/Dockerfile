@@ -8,6 +8,8 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-EXPOSE 3001
+# Render injects PORT at runtime (often 10000). EXPOSE is metadata only.
+EXPOSE 10000
 
-CMD ["npm", "start"]
+# Run node directly so SIGTERM from Render reaches the process (npm wrapper can swallow signals).
+CMD ["node", "dist/index.js"]

@@ -8,6 +8,7 @@ import { translateRouter } from "./routes/translate.js";
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3001;
+const HOST = process.env.HOST ?? "0.0.0.0";
 
 // Defense in depth: hide stack fingerprint (Helmet also strips this on responses)
 app.disable("x-powered-by");
@@ -100,6 +101,19 @@ app.use(
   }
 );
 
-app.listen(PORT, () => {
-  console.log(`API listening on http://localhost:${PORT}`);
+const server = app.listen(PORT, HOST, () => {
+  console.log(`API listening on http://${HOST}:${PORT}`);
+  console.log(`Health check: http://${HOST}:${PORT}/health`);
 });
+
+function shutdown(signal: string) {
+  console.log(`Received ${signal}, shutting down gracefully…`);
+  server.close(() => {
+    console.log("HTTP server closed.");
+    process.exit(0);
+  });
+  setTimeout(() => process.exit(1), 10_000).unref();
+}
+
+process.on("SIGTERM", () => shutdown("SIGTERM"));
+process.on("SIGINT", () => shutdown("SIGINT"));
